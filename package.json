@@ -5,13 +5,20 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "DEBUG='crypt,unit-test' vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "bs58": "^4.0.1",
     "core-js": "^3.3.2",
+    "debug": "^4.1.1",
+    "elliptic": "^6.5.2",
+    "js-sha256": "^0.9.0",
+    "ripemd160": "^2.0.2",
+    "secp256k1": "^3.7.1",
+    "secure-random": "^1.1.2",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.3.0",
@@ -20,6 +27,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
+    "@types/node": "^12.12.12",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-e2e-cypress": "^4.0.0",
     "@vue/cli-plugin-eslint": "^4.0.0",
@@ -31,7 +39,6 @@
     "@vue/eslint-config-prettier": "^5.0.0",
     "@vue/eslint-config-typescript": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
-    "debug": "^4.1.1",
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.0.0",
