@@ -46,7 +46,6 @@
           </a>
         </v-layout>
       </v-flex>
-
     </v-layout>
   </v-container>
 </template>

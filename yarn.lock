@@ -10508,6 +10508,11 @@ vuetify@^2.1.0:
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.1.11.tgz#cd9b6ce90763e69017932153aab39bc6861c7226"
   integrity sha512-WkHtAeCQldbESC/wsUCXdBt3i+Wph56IWVvWNJO35tB4tFqqRLmbbCO/c5m+pdm5Byg36rs48+R+96Herxs+gA==
 
+vuex-module-decorators@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/vuex-module-decorators/-/vuex-module-decorators-0.11.0.tgz#1da409385f001dc45fffcc292f4a7895cdf8db27"
+  integrity sha512-mQeH0F9C5eoDvhOxGLxc2eKAA+GT9MvCyauZZtQSvLjN3PX//oj9mlhpmMJH2/q9LOScZ8fBrX1qqd+aOKq/LA==
+
 vuex@^3.0.1:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.1.2.tgz#a2863f4005aa73f2587e55c3fadf3f01f69c7d4d"

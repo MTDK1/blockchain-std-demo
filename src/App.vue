@@ -10,6 +10,14 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link to="account">
+          <v-list-item-action>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Account</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item link to="about">
           <v-list-item-action>
             <v-icon>mdi-settings</v-icon>
@@ -27,9 +35,9 @@
     </v-app-bar>
 
     <v-content>
-      <v-container class="fill-height" fluid>
-        <v-row align="center" justify="center">
-          <v-col class="shrink">
+      <v-container class="" fluid>
+        <v-row justify="center">
+          <v-col class="">
             <router-view />
           </v-col>
         </v-row>
