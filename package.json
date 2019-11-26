@@ -19,6 +19,7 @@
     "ripemd160": "^2.0.2",
     "secp256k1": "^3.7.1",
     "secure-random": "^1.1.2",
+    "v-markdown": "^1.0.2",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.3.0",
