@@ -25,7 +25,7 @@ const ADDRESS = "162n9piV8NmFqNz31snjze3w5uw9YqMKNw";
 const ERR_ADDRESS = "162n9piV8NmFqNz31snjze3w5uw9YqMKNx";
 const MESSAGE = JSON.stringify({
   test: "あいうえお",
-  data: { to: PUBLICKEY.toString("hex") },
+  data: { to: PUBLICKEY.toString("hex") }
 });
 const MESSAGE_HEX =
   "2537422532327465737425323225334125323225453325383125383225453325383125383425" +
