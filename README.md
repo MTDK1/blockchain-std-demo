@@ -1,4 +1,4 @@
-# vue-test-sample
+# BDevUx 学習デモ
 
 ## Project setup
 ```
