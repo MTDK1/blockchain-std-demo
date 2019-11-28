@@ -14,12 +14,24 @@ export interface KeyStoreState {
 }
 @Module({ dynamic: true, store, name: "keystore", namespaced: true })
 class KeyStore extends VuexModule implements KeyStoreState {
+  
   // state
-  privateKey: string = "";
+  privateKey: string = localStorage["bdebuxdemo.privatekey"];
   // mutation
   @Mutation
   public SET_PRIVATEKEY(key: string) {
     this.privateKey = key;
+  }
+  @Action({})
+  public savePrivateKey(key: string) {
+    localStorage["bdebuxdemo.privatekey"] = key;
+    if(key !== this.privateKey)
+      this.SET_PRIVATEKEY(key);
+  }
+  @Action({})
+  public loadPrivateKey() {
+    const key = localStorage["bdebuxdemo.privatekey"];
+    this.SET_PRIVATEKEY(key);
   }
   // actions
   // @Action({})

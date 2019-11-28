@@ -16,4 +16,17 @@ export default class GenerateSecret extends Vue {
     keystoreModule.SET_PRIVATEKEY(this.secretKey);
     log(keystoreModule.privateKey);
   }
+
+  public onClickSave() {
+    if (!this.secretKey || this.secretKey.length == 0) {
+      return;
+    }
+    const key = this.secretKey;
+    keystoreModule.savePrivateKey(key);
+  }
+
+  public onClickLoad() {
+    keystoreModule.loadPrivateKey();
+    this.secretKey = keystoreModule.privateKey;
+  }
 }
