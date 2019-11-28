@@ -10,7 +10,7 @@ import store from "@/store/index"; // デコレータでstoreを指定するた�
 
 // state's interface
 export interface KeyStoreState {
-  privateKey: string; 
+  privateKey: string;
 }
 @Module({ dynamic: true, store, name: "keystore", namespaced: true })
 class KeyStore extends VuexModule implements KeyStoreState {

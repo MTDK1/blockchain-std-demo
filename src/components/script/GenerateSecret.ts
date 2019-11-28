@@ -8,7 +8,6 @@ const log = require("debug")("GenerateSecret");
 
 @Component
 export default class GenerateSecret extends Vue {
-
   @Provide()
   secretKey = keystoreModule.privateKey;
 
