@@ -1,17 +1,26 @@
 <template>
   <div>
     <From />
+    <To />
+    <Data />
+    <Transaction />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import From from "@/components/From.vue";
+import To from "@/components/To.vue";
+import Data from "@/components/Data.vue";
+import Transaction from "@/components/Transaction.vue";
 
 export default {
   name: "transaction",
   components: {
-    From
+    From,
+    To,
+    Data,
+    Transaction
   }
 };
 </script>

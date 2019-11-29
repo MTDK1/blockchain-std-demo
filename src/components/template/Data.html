@@ -1,0 +1,15 @@
+<v-card class="mt-5 md-12" max-width="100%" outlined>
+  <v-card-text>
+    <p class="display-1 text--primary">
+      Data
+    </p>
+    <form>
+      <!-- <v-text-field v-model="data" label="Data" required></v-text-field> -->
+      <v-combobox
+      v-model="data"
+      :items="items"
+      label="送信するデータを入力、または選択してください"
+    ></v-combobox>
+      </form>
+  </v-card-text>
+</v-card>

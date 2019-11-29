@@ -1,0 +1,23 @@
+<v-card class="mt-5 md-12" max-width="100%" outlined>
+  <v-card-text>
+    <p class="display-1 text--primary">
+      To
+    </p>
+
+    <form>
+        <v-combobox
+        v-model="sendTo"
+        :items="items"
+        :counter="34"
+        label="送信先するデータを入力、または選択してください"
+      ></v-combobox>
+    </form>
+    <p class="body-1 text--primary">デコード: {{decoded}}</p>
+    <p class="body-1 text--primary">ネットワーク ID: {{networkId}}</p>
+    <p class="body-1 text--primary">公開鍵ハッシュ: {{pubkeyHash}}</p>
+    <p class="body-1 text--primary">チェックサム（アドレスから取得）: {{checksum}}</p>
+    <p class="body-1 text--primary">チェックサム（計算）: {{calChecksum}}</p>
+    <p class="body-1 text--primary">チェックサム比較: {{validate}}</p>
+    
+  </v-card-text>
+</v-card>
