@@ -1,11 +1,4 @@
-<template>
-  <div>
-    <From />
-    <To />
-    <Data />
-    <Transaction />
-  </div>
-</template>
+<template src="./templates/TransactionPool.html"></template>
 
 <script>
 // @ is an alias to /src
