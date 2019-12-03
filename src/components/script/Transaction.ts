@@ -10,6 +10,9 @@ const log = require("debug")("Transaction");
 
 @Component
 export default class Transaction extends Vue {
+  private get count() {
+    return TransactionModule.transactions.length;
+  }
   private get sendTo() {
     return TransactionModule.sendTo;
   }
