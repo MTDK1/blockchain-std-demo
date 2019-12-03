@@ -3,6 +3,8 @@ import { TransactionModule } from "@/store/transaction";
 import { keystoreModule } from "@/store/keystore";
 import { crypt } from "@/utils/crypt";
 import { hashSha256 } from "@/utils/crypt/index";
+import { ITransaction } from "@/utils/transaction/index";
+import Data from "./Data";
 
 const log = require("debug")("Transaction");
 
@@ -20,56 +22,59 @@ export default class Transaction extends Vue {
     return key.getPublic("hex").toString("hex");
   }
 
-  transactionObj = { txid: "", sendTo: "", data: "", pub: "", sig: "" };
+  transactionObj: ITransaction = {
+    txid: "",
+    ver: 0,
+    data: {
+      fn: "",
+    },
+    pubKey: "",
+  };
   private get transaction() {
     return JSON.stringify(this.transactionObj, null, 2);
   }
 
-  private clearSig() {
-    this.transactionObj.sig = "";
-  }
-
   @Watch("sendTo")
-  onSendToChanged() {
-    log("data:", TransactionModule.data);
-    log(this.sendTo);
-    this.clearSig();
-    this.transactionObj.sendTo = this.sendTo;
-  }
+  onSendToChanged() {}
   @Watch("dt")
-  onDataChanged() {
-    log(this.dt);
-    this.clearSig();
-    this.transactionObj.data = this.dt;
-  }
+  onDataChanged() {}
   @Watch("publicKey")
-  onPubChanged() {
-    log(this.publicKey);
-    this.clearSig();
-    this.transactionObj.pub = this.publicKey;
-  }
+  onPubChanged() {}
 
   public onClickGenerate() {
     const buf = Buffer.from(keystoreModule.privateKey, "hex");
     const key = crypt.keyFromPrivate(buf);
-    this.transactionObj.data = TransactionModule.data;
-    this.transactionObj.sendTo = TransactionModule.sendTo;
-    this.transactionObj.pub = key.getPublic("hex").toString("hex");
+    this.transactionObj.data.fn = TransactionModule.data;
+    this.transactionObj.data.sendTo = TransactionModule.sendTo;
+    this.transactionObj.data.amount = TransactionModule.amount;
+    this.transactionObj.pubKey = key.getPublic("hex").toString("hex");
+    this.transactionObj.data.sendTime = new Date().getTime();
 
-    this.clearSig();
+    // this.clearSig();
+    this.transactionObj.txid = "";
+    this.transactionObj.data.sig = "";
     log("トランザクション", this.transactionObj);
     const text = JSON.stringify(this.transactionObj);
     const hex = crypt.string2hex(text);
     log("hex", { hex });
     const sig = crypt.sign(hex, key);
-    this.transactionObj.sig = sig;
+    this.transactionObj.data.sig = sig;
     log("署名付きトランザクション", { sig: this.transactionObj });
 
     this.transactionObj.txid = "";
-    const stx = Buffer.from(crypt.string2hex(JSON.stringify(this.transactionObj)), "hex")
+    const stx = Buffer.from(
+      crypt.string2hex(JSON.stringify(this.transactionObj)),
+      "hex"
+    );
     const btxid = Buffer.from(hashSha256(stx), "hex");
     const atxid = btxid.reverse();
     this.transactionObj.txid = atxid.toString("hex");
     // this.transaction = JSON.stringify(this.transactionObj, null, 2);
+  }
+
+  public onClickSend() {
+    log("onClickSend");
+    TransactionModule.ADD_TRANSACTION(this.transactionObj);
+    log("transactions:", JSON.stringify(TransactionModule.transactions, null, 2));
   }
 }

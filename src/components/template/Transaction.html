@@ -1,14 +1,6 @@
 <v-card class="mt-5 md-12" max-width="100%" outlined>
-  <v-card-text>
-    <p class="display-1 text--primary">
-      Transaction
-    </p>
-    <p>Public Key: {{publicKey}}</p>
-    <p>Send To: {{sendTo}}</p>
-    <p>Data: {{dt}}</p>
-  </v-card-text>
   <v-card-actions>
-    <v-btn text color="deep-purple accent-1" @click="onClickGenerate">
+    <v-btn color="blue lighten-4 accent-1" @click="onClickGenerate">
       署名
     </v-btn>
   </v-card-actions>
@@ -20,4 +12,9 @@
       </pre
     >
   </v-card-text>
+  <v-card-actions>
+    <v-btn color="blue lighten-4 accent-2" @click="onClickSend">
+      送信
+    </v-btn>
+  </v-card-actions>
 </v-card>

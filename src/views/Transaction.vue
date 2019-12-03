@@ -1,8 +1,8 @@
 <template>
   <div>
     <From />
-    <To />
     <Data />
+    <To />
     <Transaction />
   </div>
 </template>
