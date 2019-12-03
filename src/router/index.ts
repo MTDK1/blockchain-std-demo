@@ -20,7 +20,13 @@ const routes = [
     path: "/transaction",
     name: "transaction",
     component: () =>
-      import(/* webpackChunkName: "account" */ "../views/Transaction.vue")
+      import(/* webpackChunkName: "transaction" */ "../views/Transaction.vue")
+  },
+  {
+    path: "/txpool",
+    name: "txpool",
+    component: () =>
+      import(/* webpackChunkName: "txpool" */ "../views/TransactionPool.vue")
   },
   {
     path: "/about",

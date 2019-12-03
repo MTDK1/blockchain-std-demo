@@ -26,6 +26,14 @@
             <v-list-item-title>Transaction</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link to="txpool">
+          <v-list-item-action>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Transaction Pool</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item link to="about">
           <v-list-item-action>
             <v-icon>mdi-settings</v-icon>
