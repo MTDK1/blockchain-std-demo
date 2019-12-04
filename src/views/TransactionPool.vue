@@ -2,18 +2,16 @@
 
 <script>
 // @ is an alias to /src
-import From from "@/components/From.vue";
-import To from "@/components/To.vue";
-import Data from "@/components/Data.vue";
-import Transaction from "@/components/Transaction.vue";
+import TxItem from "@/components/vues/TxItem.vue";
+import { Component, Vue } from 'vue-property-decorator';
+import { TransactionModule } from "@/store/transaction";
 
-export default {
-  name: "transaction",
+@Component({
   components: {
-    From,
-    To,
-    Data,
-    Transaction
-  }
-};
+    TxItem,
+  },
+})
+export default class TransactionPool extends Vue {
+  items = TransactionModule.transactions;
+}
 </script>

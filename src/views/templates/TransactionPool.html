@@ -1,5 +1,5 @@
 <div>
-  <v-card class="mt-5 md-12" max-width="100%" outlined>
+  <v-card class=" md-12" max-width="100%" outlined>
     <v-card-text>
       <p class="title text--primary">
         トランザクジョンプール
@@ -12,4 +12,7 @@
       </p>
     </v-card-text>
   </v-card>
+  <template v-for="(item, index) in items">
+    <TxItem :index="index"></TxItem>
+  </template>
 </div>
