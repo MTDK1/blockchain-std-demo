@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["txpool"],{e1cb:function(a,n,t){"use strict";t.r(n);var o=function(){var a=this,n=a.$createElement,t=a._self._c||n;return t("div",[t("From"),t("To"),t("Data"),t("Transaction")],1)},e=[],c=t("2978"),r=t("3845"),s=t("f07a"),i=t("5724"),l={name:"transaction",components:{From:c["a"],To:r["a"],Data:s["a"],Transaction:i["a"]}},u=l,p=t("2877"),w=Object(p["a"])(u,o,e,!1,null,null,null);n["default"]=w.exports}}]);
-//# sourceMappingURL=txpool.4bd3b4da.js.map

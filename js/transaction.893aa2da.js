@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["transaction"],{"0d43":function(a,n,t){"use strict";t.r(n);var o=function(){var a=this,n=a.$createElement,t=a._self._c||n;return t("div",[t("From"),t("Data"),t("To"),t("Transaction")],1)},e=[],r=t("2978"),c=t("3845"),s=t("f07a"),i=t("5724"),l={name:"transaction",components:{From:r["a"],To:c["a"],Data:s["a"],Transaction:i["a"]}},u=l,p=t("2877"),w=Object(p["a"])(u,o,e,!1,null,null,null);n["default"]=w.exports}}]);
-//# sourceMappingURL=transaction.893aa2da.js.map
