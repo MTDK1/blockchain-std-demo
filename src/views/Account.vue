@@ -1,23 +1,3 @@
-<template>
-  <div>
-    <GenerateSecret />
-    <PublicKey />
-    <Address />
-  </div>
-</template>
+<template src="@/views/templates/Account.html"></template>
 
-<script>
-// @ is an alias to /src
-import GenerateSecret from "@/components/vues/GenerateSecret.vue";
-import PublicKey from "@/components/vues/PublicKey.vue";
-import Address from "@/components/vues/Address.vue";
-
-export default {
-  name: "account",
-  components: {
-    GenerateSecret,
-    PublicKey,
-    Address
-  }
-};
-</script>
+<script src="@/views/scripts/Account.ts"></script>

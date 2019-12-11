@@ -1,0 +1,195 @@
+<div>
+  <MessageCard title="Account 作成">
+    <p>
+      ブロックチェーンでコインを送信したり、スマートコントラクトを利用するために必要となる秘密鍵を作成します。
+      コインを送信するときにアドレス（文字列）を見たことがあるかもしれません。
+      このアドレスは秘密鍵から暗号化、ハッシュ化などによって求めます。
+    </p>
+    <p>
+      アカウントを作成するというのは、秘密鍵を作成するということになります。
+      このデモでは必要ありませんが、作成した秘密鍵は盗まれないように大切に保管しましょう。
+    </p>
+  </MessageCard>
+  <MessageCard class="mt-5" title="秘密鍵">
+    <p>
+      秘密鍵は32バイトの数字です。32バイトというのは64文字の16進数で表記できます。
+      使用できる文字は0〜9とA〜F（a〜f)の16種類です。
+      ビットコインの仕様では最大値は下記のような値です。<br />
+      （16進数）<br />FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364140<br />
+      （10進数）<br />115792089237316195423570985008687907852837564279074904382605163141518161494336<br />
+      無量大数（10の68乗）を超える大きな数ですね。<br />
+      <br />
+      16進数で表記した最大値を BASE64
+      エンコードすると鍵っぽみえますね（そう思うのは私だけかもしれませんが、、、<br />
+      RkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkVCQUFFRENFNkFGNDhBMDNCQkZEMjVFOENEMDM2NDE0MA==<br />
+      <br />
+      <br />
+      それでは実際に秘密鍵を作成してみましょう。
+    </p>
+  </MessageCard>
+  <MessageCard class="mt-5" title="秘密鍵生成">
+    <div class="my-2">
+      <v-btn large color="primary" @click="onClickRandom">ランダム</v-btn>
+    </div>
+    <v-combobox
+      v-model="privateKey"
+      :items="privateKeys"
+      label="32バイト以下の16進数を入力するか「ランダム」ボタンを押してください。（1バイト2文字）"
+    ></v-combobox>
+    <div class="mt-5">
+      入力値 : {{privateKey}}<br />
+      最大値: {{MAX}}（16進数）<br />
+      条件：入力値 &lt; 最大値<br />
+      <span v-if="flgPrivateKey">秘密鍵は条件を満たしています</span>
+      <span v-else class="red--text">秘密鍵は条件を満たしていません</span>
+    </div>
+  </MessageCard>
+  <!-- <GenerateSecret class="mt-5" /> -->
+  <MessageCard class="mt-5" title="公開鍵">
+    <p>
+      秘密鍵は誰にも教えない自分だけが知っている情報ですが、公開鍵は他の人に教える情報です。
+    </p>
+    <p>
+      楕円曲線DSA(ECDSA)という暗号化技術により秘密鍵から公開鍵を求めます。
+      秘密鍵が短くても暗号強度が高く、スーパーコンピューターでも秘密鍵を見つけることは時間的に難しいものです。
+    </p>
+    <p>
+      公開鍵を計算で求めるための各パラメータで秘密鍵以外のパラメータは決まっています。
+      ECDSA, secp256k1
+      という単語で検索するとさらに詳しい情報が得られるでしょう。
+    </p>
+  </MessageCard>
+  <MessageCard class="mt-5" title="公開鍵生成">
+    ここではビットコインの仕様を参考に公開鍵を生成します。楕円曲線を利用した暗号化で使用するパラメータは
+    secp256k1
+    という名前で定義されています。計算は一瞬で終わります。下のボタンを押してください。<br />
+    <span v-if="!flgPrivateKey" class="red--text">
+      条件を満たした秘密鍵が生成されていません。
+    </span>
+    <div class="my-2">
+      <v-btn
+        v-bind:disabled="!flgPrivateKey"
+        large
+        color="primary"
+        @click="onClickGenPub"
+        >公開鍵生成</v-btn
+      >
+    </div>
+    <v-text-field v-model="publicKey" label="公開鍵（16進数）"></v-text-field>
+  </MessageCard>
+  <!-- <PublicKey /> -->
+  <MessageCard class="mt-5" title="アドレス">
+    最後にアドレスを作成します。
+    アドレスはコインを送ってもらうために使用します。
+    自分のアドレスを相手に教えて、「ここにコインを送ってね」という感じで使います。
+    他には残高を調べたりするときにも使えるでしょう。
+  </MessageCard>
+  <MessageCard class="mt-5" title="アドレス生成">
+    <p>ビットコインにおけるアドレスの計算手順で進めます。</p>
+    <p>
+      「ネットワーク ID + 公開鍵ハッシュ + チェックサム」という文字列を作成し、
+      BASE58 エンコードをするとアドレスになります。
+      エンコードされた文字列「アドレス」はデコードすることで元の文字列に戻すことができ、
+      アドレスからネットワークID、公開鍵ハッシュを得ることができます。
+    </p>
+    <div class="my-2">
+      <v-btn
+        v-bind:disabled="!flgPrivateKey"
+        large
+        color="primary"
+        @click="onClickHash"
+        >ハッシュ化</v-btn
+      >
+    </div>
+    <p>
+      ビットコインのメインネットワーク（本番）のネットワーク ID は 00 です。
+    </p>
+    <p>
+      公開鍵ハッシュは公開鍵を2回ハッシュ化します。 １回目は SHA-256
+      でハッシュ化し、2回目は RIPEMD-160 でハッシュ化します。<br />
+      <v-text-field v-model="pubkeyHash1" label="SHA-256"></v-text-field>
+      <v-text-field
+        v-model="pubkeyHash2"
+        label="RIPEMD-160（公開鍵ハッシュ）"
+      ></v-text-field>
+    </p>
+    <p>
+      チェックサムはネットワーク ID と公開鍵ハッシュをつなげた文字を SHA-256
+      で2回ハッシュ化して得られた文字列の先頭 8 文字です。<br />
+      <br />
+      ネットワークID ＋ 公開鍵ハッシュ <br />
+      00 {{pubkeyHash2}}<br />
+      <v-text-field v-model="checkSum1" label="SHA-256 1回目"></v-text-field>
+      <v-text-field v-model="checkSum2" label="SHA-256 2回目"></v-text-field>
+      <v-text-field v-model="checkSum" label="チェックサム"></v-text-field>
+    </p>
+    <p>
+      得られた値を「ネットワーク ID + 公開鍵ハッシュ +
+      チェックサム」のように繋げます。
+    </p>
+    <p>
+      <v-text-field
+        v-model="daddress"
+        label="ネトワークID ＋ 公開鍵ハッシュ ＋ チェックサム"
+      ></v-text-field>
+    </p>
+    <v-btn
+      v-bind:disabled="!flgPrivateKey"
+      large
+      color="primary"
+      @click="onClickAddress"
+      >BASE58 エンコード</v-btn
+    >
+    <v-text-field v-model="address" label="Address"></v-text-field>
+    <p>
+      ビットコイン、本番ネットワークで使用できる秘密鍵、公開鍵、アドレスが作成できました。
+    </p>
+  </MessageCard>
+  <MessageCard class="mt-5" title="アドレスの確認">
+    <p>
+      アドレスが正しいものであるか確認します。
+    </p>
+  </MessageCard>
+  <MessageCard class="mt-5" title="アドレスの確認">
+    <v-text-field v-model="address2" label="アドレス"></v-text-field>
+    <p>
+      BASE58
+      デコードをして「ネットワークID＋公開鍵ハッシュ＋チェックサム」の文字列にします
+    </p>
+    <v-btn large color="primary" @click="onClickBase58Decode"
+      >BASE58 デコード</v-btn
+    >
+    <v-text-field
+      v-model="daddress2"
+      label="ネトワークID ＋ 公開鍵ハッシュ ＋ チェックサム"
+    ></v-text-field>
+    <p>ネットワークID＋公開鍵ハッシュ、チェックサムの2つに分割します</p>
+    <v-btn large color="primary" @click="onClickSplit">分割</v-btn>
+    <v-text-field
+      v-model="idpubkeyhash"
+      label="ネトワークID ＋ 公開鍵ハッシュ"
+    ></v-text-field>
+    <v-text-field v-model="checksumB" label="チェックサム"></v-text-field>
+    <p>
+      「ネットワークID＋公開鍵ハッシュ」からチェックサムを計算します。
+    </p>
+    <v-btn large color="primary" @click="onClicCheckSum2"
+      >チェックサムを計算</v-btn
+    >
+    <v-text-field
+      v-model="checkSumG"
+      label="計算して得たチェックサム"
+    ></v-text-field>
+    <p>
+      デコードして得られたチェックサムと計算で得られたチェックサムは
+      <span v-if="compareChecksum" class="blue--text">一致する</span>
+      <span v-else class="red--text">一致しない</span>
+    </p>
+    <p>
+      秘密鍵から公開鍵を作成し、公開鍵からアドレスを作成しました。
+      加えて、チェックサムを使ったアドレスの確認もしました。
+    </p>
+  </MessageCard>
+  <p>TODO: 次の画面へのリンク</p>
+  <!-- <address /> -->
+</div>

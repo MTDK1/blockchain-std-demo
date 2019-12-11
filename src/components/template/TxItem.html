@@ -1,7 +1,10 @@
-<v-card class="mt-5 md-12" max-width="100%" outlined>
-  <v-card-text>
-    <p class="body-1 text--primary">
-      {{index}} - {{txid}}
-    </p>
-  </v-card-text>
-</v-card>
+<MessageCard class="mt-5" :title="txid">
+  <pre class="body-1">{{transactionText}}</pre>
+  <template v-slot:actions>
+    <v-card-actions>
+      <v-btn text color="blue lighten-4 accent-1" @click="onClickedCheck">
+        Check
+      </v-btn>
+    </v-card-actions>
+  </template>
+</MessageCard>
