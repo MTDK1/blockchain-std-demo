@@ -13,6 +13,8 @@ import { IKey } from "@/utils/crypt/ecdsa";
 import { hashSha256 } from "@/utils/crypt/sha256";
 import { hashRipemd160 } from "@/utils/crypt/ripemd160";
 
+import { ECCrypto, Encrypt } from "@/utils/crypt/eccrypt";
+
 const log = require("debug")("Account");
 
 @Component({
@@ -57,7 +59,7 @@ export default class Account extends Vue {
     log("onClickGenPub", new Date().toLocaleTimeString());
     const key = this.getKey();
     log("pubkey = " + (key ? key.getPublic("hex") : ""));
-    this.publicKey = key ? key.getPublic("hex").toString("hex") : "";
+    this.publicKey = key ? key.getPublic("hex") : "";
   }
 
   getKey(): IKey | undefined {
@@ -74,7 +76,7 @@ export default class Account extends Vue {
     const key = this.getKey();
     if (!key) return;
     const pubKey = key.getPublic("hex");
-    const hash1 = hashSha256(pubKey);
+    const hash1 = hashSha256(Buffer.from(pubKey, "hex"));
     const hash2 = hashRipemd160(hash1);
 
     this.pubkeyHash1 = hash1;
@@ -88,6 +90,25 @@ export default class Account extends Vue {
     this.checkSum = cs2.substring(0, 8);
 
     this.daddress = "00" + this.pubkeyHash2 + this.checkSum;
+
+    const msg = Buffer.from(
+      JSON.stringify({ msg: "message hello world あいうえお" })
+    );
+    log(typeof pubKey);
+    ECCrypto.encrypt(Buffer.from(pubKey, "hex"), msg).then(
+      (encrypted: Encrypt) => {
+        log({ encrypted });
+        // log(Buffer.from(encrypted.iv).toString("hex"));
+        log(JSON.stringify(encrypted, null, 2));
+        ECCrypto.decrypt(
+          Buffer.from(key.getPrivate("hex"), "hex"),
+          encrypted
+        ).then((decrypted: any) => {
+          log(typeof decrypted, decrypted);
+          log(decrypted.toString());
+        });
+      }
+    );
   }
 
   onClickAddress() {

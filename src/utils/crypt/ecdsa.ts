@@ -2,8 +2,8 @@ const ec = require("elliptic").ec;
 const secp256k1 = new ec("secp256k1");
 
 export interface IKey {
-  getPublic: (enc: "hex") => Buffer;
-  getPrivate: (enc: "hex") => Buffer;
+  getPublic: (enc: "hex") => string;
+  getPrivate: (enc: "hex") => string;
   validate: () => { result: boolean; reason: string };
   derive: (pub: Buffer) => any;
   sign: (msg: string, enc: string, option: any) => any;
