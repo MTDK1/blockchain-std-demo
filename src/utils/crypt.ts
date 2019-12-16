@@ -50,7 +50,7 @@ function keyFromPublic(publicKey: Buffer): IKey {
 }
 
 function pubKeyHash(key: IKey): string {
-  const sha256 = hashSha256(key.getPublic(HEX));
+  const sha256 = hashSha256(Buffer.from(key.getPublic(HEX), "hex"));
   return hashRipemd160(sha256).toString(HEX);
 }
 

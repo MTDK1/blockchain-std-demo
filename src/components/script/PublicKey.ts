@@ -31,6 +31,6 @@ export default class PublicKey extends Vue {
       return "";
     }
     const key = crypt.keyFromPrivate(Buffer.from(secretKey, "hex"));
-    return key.getPublic("hex").toString("hex");
+    return key.getPublic("hex"); //.toString("hex");
   }
 }

@@ -22,7 +22,7 @@ export default class Transaction extends Vue {
   private get publicKey() {
     const pri = keystoreModule.privateKey;
     const key = crypt.keyFromPrivate(Buffer.from(pri, "hex"));
-    return key.getPublic("hex").toString("hex");
+    return key.getPublic("hex");//.toString("hex");
   }
 
   transactionObj: ITransaction = {
@@ -50,7 +50,7 @@ export default class Transaction extends Vue {
     this.transactionObj.data.fn = TransactionModule.data;
     this.transactionObj.data.sendTo = TransactionModule.sendTo;
     this.transactionObj.data.amount = TransactionModule.amount;
-    this.transactionObj.pubKey = key.getPublic("hex").toString("hex");
+    this.transactionObj.pubKey = key.getPublic("hex"); //.toString("hex");
     this.transactionObj.data.sendTime = new Date().getTime();
 
     // this.clearSig();
