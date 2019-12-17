@@ -91,24 +91,7 @@ export default class Account extends Vue {
 
     this.daddress = "00" + this.pubkeyHash2 + this.checkSum;
 
-    const msg = Buffer.from(
-      JSON.stringify({ msg: "message hello world あいうえお" })
-    );
-    log(typeof pubKey);
-    ECCrypto.encrypt(Buffer.from(pubKey, "hex"), msg).then(
-      (encrypted: Encrypt) => {
-        log({ encrypted });
-        // log(Buffer.from(encrypted.iv).toString("hex"));
-        log(JSON.stringify(encrypted, null, 2));
-        ECCrypto.decrypt(
-          Buffer.from(key.getPrivate("hex"), "hex"),
-          encrypted
-        ).then((decrypted: any) => {
-          log(typeof decrypted, decrypted);
-          log(decrypted.toString());
-        });
-      }
-    );
+
   }
 
   onClickAddress() {

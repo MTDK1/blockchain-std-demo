@@ -1,38 +1,41 @@
 <div>
   <MessageCard title="テキスト暗号化、復号化">
     <p>
-      TODO: 短い説明
+      ここでは秘密にしたい情報を暗号化し、その情報を見るための復号化を行います。
     </p>
   </MessageCard>
   <MessageCard class="mt-5" title="暗号化する前のテキスト">
-    <p>
-      暗号化したいテキスト、初期値「暗号化したいテキストをここに入力」<br />
-      公開鍵を16進数テキストで表示する<br />
-      暗号化前のテキストを数値化し16進数で表示
-    </p>
+    <v-text-field v-model="text1" label="暗号化したいテキスト"></v-text-field>
   </MessageCard>
   <MessageCard class="mt-5" title="暗号化">
-    <p>
-      暗号化ボタン<br />
-      暗号化後のデータをテキスト表示
-    </p>
+    <div class="my-2">
+      <v-text-field v-model="pubkey" label="公開鍵"></v-text-field>
+      <v-btn large color="primary" @click="onClickEncrypt"
+        >公開鍵を使って暗号化</v-btn
+      >
+    </div>
+    <v-textarea
+      outlined
+      label="暗号化したデータをJSONとして表示"
+      v-model="encryptedJson"
+    ></v-textarea>
+    <v-text-field v-model="encrypted" label="暗号化されたデータを16進数で表示"></v-text-field>
   </MessageCard>
   <MessageCard class="mt-5" title="復号化">
+    <v-text-field v-model="encrypted" label="暗号化されたデータ"></v-text-field>
+    <div class="my-2">
+      <v-btn large color="primary" @click="onClickDecrypt"
+        >秘密鍵を使って復号化</v-btn
+      >
+    </div>
     <p>
-      復号化ボタン<br />
-      暗号化後のデータをテキスト表示<br />
-      秘密鍵を16進数テキストで表示<br />
-      復号化後のデータをテキスト表示<br />
-      テキストに戻して表示<br />
+      <v-text-field v-model="prikey" label="秘密鍵"></v-text-field>
+      <v-text-field v-model="text2" label="復号化したテキスト"></v-text-field>
     </p>
   </MessageCard>
   <MessageCard class="mt-5" title="一致していることを確認する">
-    <p>
-      暗号化する前のテキストを数値化し16進数テキスト表示<br />
-      復号化したデータを16進数テキスト表示<br />
-      比較結果を表示<br />
-      暗号化前のテキストを表示<br />
-      復号化したデータをテキストに戻して表示<br />
-    </p>
+    <v-text-field v-model="text1" label="暗号化する前のテキスト"></v-text-field>
+    <v-text-field v-model="text2" label="復号化したテキスト"></v-text-field>
+    <v-text-field v-model="text1EQtext2" label="一致するか確認"></v-text-field>
   </MessageCard>
 </div>
