@@ -15,7 +15,7 @@
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Account</v-list-item-title>
+            <v-list-item-title>秘密鍵、公開鍵、アドレス</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link to="eccrypto">
