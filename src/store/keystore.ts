@@ -4,7 +4,7 @@ import {
   Action,
   VuexModule,
   getModule,
-  Module,
+  Module
 } from "vuex-module-decorators";
 import store from "@/store/index"; // デコレータでstoreを指定するためimportする必要あり
 
@@ -14,7 +14,6 @@ export interface KeyStoreState {
 }
 @Module({ dynamic: true, store, name: "keystore", namespaced: true })
 class KeyStore extends VuexModule implements KeyStoreState {
-  
   // state
   privateKey: string = localStorage["bdebuxdemo.privatekey"] || "";
   // mutation
@@ -25,8 +24,7 @@ class KeyStore extends VuexModule implements KeyStoreState {
   @Action({})
   public savePrivateKey(key: string) {
     localStorage["bdebuxdemo.privatekey"] = key;
-    if(key !== this.privateKey)
-      this.SET_PRIVATEKEY(key);
+    if (key !== this.privateKey) this.SET_PRIVATEKEY(key);
   }
   @Action({})
   public loadPrivateKey() {

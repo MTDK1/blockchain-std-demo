@@ -3,7 +3,7 @@ import {
   Action,
   VuexModule,
   getModule,
-  Module,
+  Module
 } from "vuex-module-decorators";
 import store from "@/store/index"; // デコレータでstoreを指定するためimportする必要あり
 import { ITransaction } from "@/utils/transaction";

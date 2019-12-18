@@ -90,8 +90,6 @@ export default class Account extends Vue {
     this.checkSum = cs2.substring(0, 8);
 
     this.daddress = "00" + this.pubkeyHash2 + this.checkSum;
-
-
   }
 
   onClickAddress() {

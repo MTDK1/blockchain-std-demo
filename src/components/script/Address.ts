@@ -29,7 +29,7 @@ export default class Address extends Vue {
     }
     const key = crypt.keyFromPrivate(Buffer.from(secretKey, "hex"));
     const pubHash = crypt.pubKeyHash(key);
-    const networkId = '00';
+    const networkId = "00";
     const address = crypt.generateAddress(networkId, pubHash);
     return address;
   }

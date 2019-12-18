@@ -22,16 +22,16 @@ export default class Transaction extends Vue {
   private get publicKey() {
     const pri = keystoreModule.privateKey;
     const key = crypt.keyFromPrivate(Buffer.from(pri, "hex"));
-    return key.getPublic("hex");//.toString("hex");
+    return key.getPublic("hex"); //.toString("hex");
   }
 
   transactionObj: ITransaction = {
     txid: "",
     ver: 0,
     data: {
-      fn: "",
+      fn: ""
     },
-    pubKey: "",
+    pubKey: ""
   };
   private get transaction() {
     return JSON.stringify(this.transactionObj, null, 2);
@@ -78,6 +78,9 @@ export default class Transaction extends Vue {
   public onClickSend() {
     log("onClickSend");
     TransactionModule.ADD_TRANSACTION(this.transactionObj);
-    log("transactions:", JSON.stringify(TransactionModule.transactions, null, 2));
+    log(
+      "transactions:",
+      JSON.stringify(TransactionModule.transactions, null, 2)
+    );
   }
 }

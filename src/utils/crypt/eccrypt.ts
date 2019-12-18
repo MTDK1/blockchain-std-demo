@@ -4,7 +4,10 @@ export class ECCrypto {
   public static encrypt(publicKey: Buffer, msg: Buffer): Promise<Encrypt> {
     return eccrypto.encrypt(publicKey, msg);
   }
-  public static decrypt(privateKey: Buffer, encrypted: Encrypt): Promise<Uint8Array> {
+  public static decrypt(
+    privateKey: Buffer,
+    encrypted: Encrypt
+  ): Promise<Uint8Array> {
     return eccrypto.decrypt(privateKey, encrypted);
   }
 }
