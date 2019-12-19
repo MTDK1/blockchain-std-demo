@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Account from "../views/Account.vue";
 import TransactionPool from "../views/TransactionPool.vue";
 import ECCrypto from "@/views/vues/ECCrypto.vue";
+import { Sign } from "@/views";
 
 Vue.use(VueRouter);
 
@@ -28,11 +29,11 @@ const routes = [
     component: ECCrypto
   },
   {
-    path: "/txpool",
-    name: "txpool",
+    path: "/sign",
+    name: "sign",
     // component: () =>
     //   import(/* webpackChunkName: "txpool" */ "../views/TransactionPool.vue"),
-    component: TransactionPool
+    component: Sign
   },
   {
     path: "/about",

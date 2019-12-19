@@ -26,12 +26,12 @@
             <v-list-item-title>暗号化、復号化</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="txpool">
+        <v-list-item link to="sign">
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Transaction Pool</v-list-item-title>
+            <v-list-item-title>署名</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link to="about">
