@@ -36,7 +36,6 @@ export default tsx.component({
     return (
       <MessageCard title={this.title}>
         {this.privateKey}
-        
         <v-card-actions slot="actions">
           <v-btn large color="primary" onClick={this.random}>
             ランダム

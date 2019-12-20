@@ -16,7 +16,7 @@ export default tsx.component({
     VCardText
   },
   render(_h: any) {
-    log(this.$slots);
+    // log(this.$slots);
     return (
       <v-card class="md-12" max-width="100%" outlined>
         <v-card-text>

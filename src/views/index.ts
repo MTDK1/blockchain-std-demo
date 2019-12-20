@@ -1,1 +1,2 @@
-export { Sign } from "./Sign";
+import Sign from "./Sign";
+export { Sign };

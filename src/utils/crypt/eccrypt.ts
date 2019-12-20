@@ -10,6 +10,9 @@ export class ECCrypto {
   ): Promise<Uint8Array> {
     return eccrypto.decrypt(privateKey, encrypted);
   }
+  public static sign(privateKey: Buffer, message: Buffer): Promise<any> {
+    return eccrypto.sign(privateKey, message);
+  }
 }
 
 export interface Encrypt {
