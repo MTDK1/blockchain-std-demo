@@ -115,7 +115,7 @@ function sign(msg: string, privateKeyPair: IKey): string {
   return signature.toDER("hex");
 }
 
-function verifySignature(msg: string, signature: string, publicKeyPair: IKey) {
+function verifySignature(msg: string, signature: Buffer, publicKeyPair: IKey) {
   const sha: string = hashSha256(Buffer.from(msg, HEX));
   const messageHash = hashRipemd160(sha).toString(HEX);
   const isVerified = publicKeyPair.verify(messageHash, signature);

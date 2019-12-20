@@ -6,8 +6,9 @@ export interface IKey {
   getPrivate: (enc: "hex") => string;
   validate: () => { result: boolean; reason: string };
   derive: (pub: Buffer) => any;
-  sign: (msg: string, enc: string, option: any) => any;
-  verify: (msg: string, signature: any) => any;
+  /* Sign the message's hash (input must be an array, or a hex-string) */
+  sign: (msg: Buffer, enc?: string, option?: any) => any;
+  verify: (msg: string, signature: Buffer) => boolean;
   inspect: () => string;
 }
 export const ecdsa = {

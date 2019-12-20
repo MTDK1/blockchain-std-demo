@@ -101,7 +101,11 @@ describe("utils/crypt.ts", () => {
     it("verifySignature", () => {
       const c = crypt.string2hex(MESSAGE);
       const pubKeyPair = crypt.keyFromPublic(PUBLICKEY);
-      const verify = crypt.verifySignature(c, SIGNATURE, pubKeyPair);
+      const verify = crypt.verifySignature(
+        c,
+        Buffer.from(SIGNATURE, "hex"),
+        pubKeyPair
+      );
       expect(verify).toBe(true);
     }),
     it("string2hex", () => {
