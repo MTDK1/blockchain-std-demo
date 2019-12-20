@@ -1,18 +1,19 @@
-import * as tsx from "vue-tsx-support";
+import { Component, Vue, Prop, Provide, Watch } from "vue-property-decorator";
+import { PrivateKey,MessageCard } from "@/components";
+const log = require("debug")("Sign");
 
-export default tsx.component({
-  name: "Sign",
-  props: {
-    // label: {
-    //   type: String,
-    //   required: true as true
-    // }
-  },
-  render() {
+@Component({
+  components: {
+    PrivateKey, MessageCard
+  }
+})
+export class Sign extends Vue {
+  render(h: any) {
     return (
       <div>
-        <h1>Sign</h1>
+        <MessageCard title="署名作成と検証"></MessageCard>
+        <PrivateKey class="mt-5" title="秘密鍵" />
       </div>
     );
   }
-});
+}
