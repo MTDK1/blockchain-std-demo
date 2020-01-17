@@ -1,7 +1,7 @@
 var eccrypto = require("eccrypto");
 const log = require("debug")("unit-test");
 
-describe("utils/crypt.ts", () => {
+describe.skip("utils/crypt.ts", () => {
   it("maxPrivateKey", () => {
     log(eccrypto);
     log(typeof eccrypto.generatePrivate);

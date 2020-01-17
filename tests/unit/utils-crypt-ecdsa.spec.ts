@@ -39,7 +39,7 @@ const SIGNATURE =
   "30460221008d2f1675b2eec05cfc0b235dcc92481cdf5bb2b3246a118d0f479fc68c3fff5d0221" +
   "00efb1859c71c278dd72bc8736cadbb1936957badaca9afdbc5d107a8a983b8b55";
 
-describe("utils/crypt.ts", () => {
+describe.skip("utils/crypt.ts", () => {
   it("maxPrivateKey", () => {
     expect(Buffer.compare(maxPrivateKey, MAXPRIVATEKEY)).toBe(0);
   }),

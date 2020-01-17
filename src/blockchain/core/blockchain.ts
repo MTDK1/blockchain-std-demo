@@ -5,4 +5,4 @@
  * 00ffff is mantissa.
  * base is 256
  */
-const DIFFICULTY = "1d00ffff";
+const DIFFICULTY = Buffer.from("1d"+"ffffff", "hex");

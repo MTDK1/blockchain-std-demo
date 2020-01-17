@@ -1,5 +1,5 @@
 import { Block } from "@/blockchain/core";
-describe("blockchain/block.ts", () => {
+describe.skip("blockchain/block.ts", () => {
   it("calcTarget", () => {
     const b = Block.fromJson(`{"index": "01",
       "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
