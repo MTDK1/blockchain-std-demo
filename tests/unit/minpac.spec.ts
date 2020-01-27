@@ -4,11 +4,12 @@ import {
   Transaction,
   Block,
   BlockChain,
-  functions
-} from "@/blockchainMinpaku/blockchaincore";
+  utils,
+  Tx
+} from "@/blockchainMinpaku";
 import { hashSha256 } from "@/utils/crypt/index";
 import { crypt } from "@/utils/crypt";
-const log = require("debug")("Minpaku");
+const log = require("debug")("Minpaku:Test");
 
 const PRIVATEKEY = Buffer.from(
   "2fe048c06a5f8bf9b0d97f939aab60faf77835a98ef68710dabca6b36e112ef8",
@@ -18,33 +19,39 @@ const PRIVATEKEY = Buffer.from(
 const MINNER =
   "5db3bd90f9a06a9b82c951ef6787d71f00556da29f8ac78276211fa39f75d7f6";
 
-describe("minpaku", () => {
-  it("functions.createTransaction()", () => {
-    const itemHash = "";
-    const paymentHash = "";
-    const user = "";
+describe("utils", () => {
+  it("utils.createTransaction()", () => {
+    // mock data
+    const itemHash = "ITEMHASH1234";
+    const paymentHash = "PAYMENTHASH5678";
+    const user = "USER1234567890";
     const data = { itemHash, paymentHash, user };
-    const tx = functions.createTransaction(data, PRIVATEKEY.toString("hex"));
-    expect(tx.txHash).toBe(
-      "8128a0f3454bc6ddbfdf5af82b2be0071d4488b5e9cab61ff59e47576062cbf3"
-    );
-    expect(tx.verify()).toBeTruthy();
 
-    const dt2 = tx.data;
-    // const dt2 = Data.fromBuffer(Buffer.from(dt, "hex"));
-    expect(dt2.itemHash).toBe(itemHash);
-    expect(dt2.paymentHash).toBe(paymentHash);
-    expect(dt2.user).toBe(user);
+    // target function
+    const tx = utils.createTransaction(data, PRIVATEKEY.toString("hex"));
+
+    // expect
+    const txData: Data = tx.getData() as Data;
+    expect(txData.itemHash).toBe(data.itemHash);
+    expect(txData.paymentHash).toBe(data.paymentHash);
+    expect(txData.user).toBe(data.user);
+
+    // expect
+    expect((tx as Transaction).txHash).toBe(
+      "4243d39e4a7b1eead10bbe53f26516fe736e7208737d0196f266a932d9bd9cbb"
+    );
+    // expect
+    expect(tx.verify()).toBeTruthy();
   });
-  it("functions.createBlock()", () => {
+  it("utils.createBlock()", () => {
     const itemHash = "";
     const paymentHash = "";
     const user = "";
     const data = { itemHash, paymentHash, user };
-    const tx = functions.createTransaction(data, PRIVATEKEY.toString("hex"));
+    const tx = utils.createTransaction(data, PRIVATEKEY.toString("hex"));
 
     const prevHash = "";
-    const block = functions.createBlock(prevHash, tx);
+    const block = utils.createBlock(prevHash, tx);
     expect(block.hash).toBe(
       "ee4620e52077d5dc5b4e319c3dbc5d9b4bedf471f8639e1ead6d04081969911d"
     );
@@ -54,14 +61,16 @@ describe("minpaku", () => {
     const btx = block.transaction;
     // const btx = Transaction.fromBuffer(Buffer.from(btransaction, "hex"));
     expect(btx.verify()).toBeTruthy();
-    expect(btx.txHash).toBe(tx.txHash);
+    expect((btx as Transaction).txHash).toBe((tx as Transaction).txHash);
 
-    const dt2 = btx.data;
+    const dt2 = btx.getData() as Data;
     // const dt2 = Data.fromBuffer(Buffer.from(dt, "hex"));
     expect(dt2.itemHash).toBe(itemHash);
     expect(dt2.paymentHash).toBe(paymentHash);
     expect(dt2.user).toBe(user);
   });
+});
+describe("minpaku", () => {
   it("core", () => {
     const b = new BlockChainCore({ minnerPriKey: MINNER });
     let prevHash: string =
@@ -85,11 +94,11 @@ describe("minpaku", () => {
     const user = crypt.generateAddress("00", crypt.pubKeyHash(key));
     const priKey = PRIVATEKEY.toString("hex");
     for (let i = 0; i < 10; i++) {
-      const tx = functions.createTransaction(
+      const tx = utils.createTransaction(
         { itemHash: "myitem", paymentHash: "mypay", user: user },
         priKey
       );
-      const r = b.minpakuPurchased(tx);
+      const r = b.minpakuPurchased((tx as Transaction));
       log("minpakuPurchased, result=", r);
       expect(r.err).toBeNull();
       expect(r.result).toBeTruthy();
@@ -266,7 +275,7 @@ describe("minpaku", () => {
       "161313432626434396337363337333063333532616565636234616162366339663566313" +
       "561333230633864646262623163653638383630227d";
     const tx = Transaction.fromBuffer(Buffer.from(stx, "hex"));
-    const block = functions.createBlock(prevHash, tx);
+    const block = utils.createBlock(prevHash, tx);
     expect(block.hash).toBe(
       "f9f68d1bbf1517fa0d6618ebe389514c2cda6dd2ac2f0870b40515cf5807da8c"
     );
@@ -291,7 +300,7 @@ describe("minpaku", () => {
     );
 
     const tx2 = Object.assign(new Transaction(), tx);
-    const block3 = functions.createBlock(hash, tx2);
+    const block3 = utils.createBlock(hash, tx2);
     chain.addBlock(block3);
 
     // get height
@@ -308,7 +317,7 @@ describe("minpaku", () => {
     );
 
     // prevHash が間違えている
-    const block5 = functions.createBlock(hash, tx2);
+    const block5 = utils.createBlock(hash, tx2);
     chain.addBlock(block5);
 
     // ブロックが追加されていない
